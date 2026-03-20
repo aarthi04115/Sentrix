@@ -1,108 +1,164 @@
 # 🔬 Sentrix — Real-Time Sentiment Intelligence
 
-> Built by [AARTHI GD] | 
+> Analyze public opinion on any topic, instantly. Powered by live Reddit data, NLP, and a trained ML model.
 
-Sentrix is a real-time NLP dashboard that fetches live Reddit posts 
-on any topic and performs both overall and aspect-level sentiment analysis.
-
----
-
-## What Makes Sentrix Different?
-
-- Live Reddit data — not a static old dataset
-- Aspect-level analysis — breaks reviews into camera, battery, price etc
-- Interactive charts — pie chart, trend line, top posts
-- Clean web UI — no terminal needed, runs in browser
+![Python](https://img.shields.io/badge/Python-3.10+-blue?style=flat-square&logo=python)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.x-FF4B4B?style=flat-square&logo=streamlit)
+![Accuracy](https://img.shields.io/badge/Model%20Accuracy-89.24%25-brightgreen?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
 ---
 
-## Tech Stack
+## 📌 What is Sentrix?
+
+Sentrix is a real-time NLP dashboard that fetches live Reddit posts on any topic and performs both **overall** and **aspect-level** sentiment analysis — then compares a rule-based approach (VADER) against a custom-trained ML model side by side.
+
+Unlike typical sentiment analysis projects that use static datasets, Sentrix works on **live data** fetched directly from Reddit — making every analysis unique and genuinely useful.
+
+---
+
+## ✨ Features
+
+### 🌐 Tab 1 — Live Reddit Analysis
+- Fetches 10–100 live Reddit posts on any topic in real time
+- Classifies each post as Positive, Negative, or Neutral
+- Interactive pie chart — sentiment distribution
+- Trend line — sentiment score across posts
+- Top positive and negative posts with direct Reddit links
+
+### 🔍 Tab 2 — Aspect-Based Sentiment Analyzer
+- Paste any product review
+- Breaks it down by specific aspects — camera, battery, price, display, speed, design
+- Each aspect gets its own sentiment score independently
+- Example:
+  ```
+  Input:   "Camera is stunning but battery drains too fast. Price is fair."
+  Output:  Camera  → Positive 85%
+           Battery → Negative 78%
+           Price   → Neutral  55%
+  ```
+
+### 🤖 Tab 3 — Model Comparison
+- Same review analyzed by two different AI approaches simultaneously
+- VADER (rule-based, 7500 word dictionary) vs Your Trained ML Model
+- Radar chart comparing accuracy, speed, sarcasm handling, and customizability
+- Auto-detects when models disagree — flags ambiguous or sarcastic reviews
+
+---
+
+## 🛠️ Tech Stack
 
 | Tool | Purpose |
 |---|---|
-| Python | Core language |
-| Streamlit | Web app UI |
-| VADER | Sentiment scoring |
-| SpaCy | NLP sentence splitting |
-| Plotly | Interactive charts |
+| Python 3.10+ | Core language |
+| Streamlit | Web application UI |
+| VADER (NLTK) | Rule-based sentiment scoring |
+| SpaCy | NLP — sentence splitting & aspect extraction |
+| Scikit-learn | Logistic Regression ML model |
+| TF-IDF Vectorizer | Text to numerical features |
+| Plotly | Interactive charts and visualizations |
 | Requests | Live Reddit data fetching |
-| Pandas | Data handling |
+| Pandas | Data handling and manipulation |
+| Pickle | Model serialization |
 
 ---
 
-## How to Run
+## 📊 ML Model Performance
 
-**Step 1 — Install libraries:**
+Trained on the IMDB 50K Movie Reviews dataset using Logistic Regression + TF-IDF.
+
+| Metric | Score |
+|---|---|
+| Accuracy | **89.24%** |
+| F1 Score (Positive) | **0.89** |
+| F1 Score (Negative) | **0.89** |
+| Precision | **0.89** |
+| Recall | **0.89** |
+| Training samples | 40,000 |
+| Test samples | 10,000 |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Python 3.10 or above
+- pip
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/aarthi04115/Sentrix.git
+cd Sentrix
+
+# Install dependencies
 pip install -r requirements.txt
+
+# Download SpaCy language model
 python -m spacy download en_core_web_sm
-
-**Step 2 — Run the app:**
-streamlit run app.py
-
-**Step 3 — Open browser:**
-Go to http://localhost:8501
-
----
-
-## Features
-
-### Live Reddit Tracker
-- Type any topic
-- Fetches 50+ real Reddit posts instantly
-- Shows sentiment pie chart
-- Shows sentiment trend line
-- Shows most positive and most negative post
-
-### Aspect Analyzer
-- Type any product review
-- Breaks it down by camera, battery, price, display, speed, design
-- Shows which aspect is positive or negative separately
-
----
-
-## Sample Output
-
-Input: "The camera is stunning but battery drains too fast. Price is fair."
-
-| Aspect | Sentiment | Score |
-|---|---|---|
-| Camera | Positive | 85% |
-| Battery | Negative | 75% |
-| Price | Neutral | 55% |
-
----
-
-## Author
-Built by [Your Name]
-[Your College Name] — [Your Branch] — [Your Year]
 ```
 
-**Step 3** — Press **Ctrl + S** ✅
+### Train the ML Model
+
+```bash
+python model_train.py
+```
+
+This will generate `model.pkl` and `vectorizer.pkl` in the project directory.
+
+> Note: Download the IMDB Dataset from [Kaggle](https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews) and place it in the project root before training.
+
+### Run the App
+
+```bash
+streamlit run app.py
+```
+
+Open your browser at `http://localhost:8501`
 
 ---
 
-## 📖 Why README Matters So Much
+## 📁 Project Structure
 
-When a recruiter opens your GitHub repo, the **first thing they see** is your README — before even looking at code.
-
-A good README tells them:
-- What the project does in 10 seconds
-- How to run it without asking you
-- That you think like a professional, not a student
-
-> A project with no README = recruiter closes the tab immediately ❌
-> A project with a clean README = recruiter keeps reading ✅
-
----
-
-## 🎉 All 6 Files Done!
-
-Your Sentrix folder should now look like:
 ```
 Sentrix/
-├── app.py
-├── sentiment.py
-├── aspect.py
-├── reddit_fetch.py
-├── requirements.txt
-└── README.md
+├── app.py              ← Main Streamlit web app (3 tabs)
+├── sentiment.py        ← VADER sentiment analyzer
+├── aspect.py           ← Aspect-based sentiment extraction
+├── reddit_fetch.py     ← Live Reddit data fetcher
+├── ml_predict.py       ← Trained ML model predictor
+├── model_train.py      ← Model training script
+├── requirements.txt    ← Project dependencies
+└── README.md           ← You are here
+```
+
+---
+
+## 💡 Why Sentrix?
+
+| Typical Student Project | Sentrix |
+|---|---|
+| Static IMDB CSV dataset | Live Reddit data — different every demo |
+| Just positive / negative | Aspect-level breakdown per topic |
+| Terminal output only | Full interactive web dashboard |
+| Single approach | VADER vs ML model comparison |
+| Generic name | Branded, memorable product |
+
+---
+
+## 👤 Author
+
+**Aarthi G D**
+
+Built as part of an AI/ML learning journey — combining NLP, machine learning, and real-time data to solve a genuine problem.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+Built with Python · VADER · SpaCy · Sklearn · Streamlit
